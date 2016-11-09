@@ -1,27 +1,31 @@
 package ninja.sakib.footballfreak.views
 
 import android.os.Bundle
-import android.os.Environment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import ninja.sakib.footballfreak.adapters.FixtureAdapter
 import ninja.sakib.footballfreak.api.FixtureFetcher
+import ninja.sakib.footballfreak.controllers.FixtureController
 import ninja.sakib.footballfreak.models.FixtureModel
 import ninja.sakib.pultusorm.callbacks.Callback
-import ninja.sakib.pultusorm.core.PultusORM
 import ninja.sakib.pultusorm.core.PultusORMQuery
 import ninja.sakib.pultusorm.exceptions.PultusORMException
 import org.jetbrains.anko.*
 import kotlin.properties.Delegates
 
+/**
+ * := Coded with love by Sakib Sami on 11/8/16.
+ * := s4kibs4mi@gmail.com
+ * := www.sakib.ninja
+ * := Coffee : Dream : Code
+ */
+
 class MainActivity : AppCompatActivity(), Callback {
     private var fixtureAdapter by Delegates.notNull<FixtureAdapter>()
-    private var database: PultusORM by Delegates.notNull<PultusORM>()
+    private var fixtureController = FixtureController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        database = PultusORM("fixtures.db", Environment.getExternalStorageDirectory().absolutePath)
 
         relativeLayout {
             listView {
@@ -73,11 +77,11 @@ class MainActivity : AppCompatActivity(), Callback {
 
         doAsync {
             val fixtures = FixtureFetcher().fetch()
-            database.delete(FixtureModel())
+            fixtureController.clear()
 
             Log.d("Where", "Saving to database ${fixtures.size}")
             for (it in fixtures) {
-                database.save(it, this@MainActivity)
+                fixtureController.save(it, this@MainActivity)
             }
 
             showNewData()
@@ -89,7 +93,7 @@ class MainActivity : AppCompatActivity(), Callback {
             toast("Refreshing List")
             fixtureAdapter.clearFixtures()
 
-            val fixtures = database.find(FixtureModel())
+            val fixtures = fixtureController.get()
             for (it in fixtures) {
                 val fixture = it as FixtureModel
                 fixtureAdapter.addFixture(fixture)

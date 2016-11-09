@@ -8,7 +8,10 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 
 /**
- * Created by s4kib on 11/9/16.
+ * := Coded with love by Sakib Sami on 11/8/16.
+ * := s4kibs4mi@gmail.com
+ * := www.sakib.ninja
+ * := Coffee : Dream : Code
  */
 
 class FixtureFetcher {

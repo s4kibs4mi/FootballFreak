@@ -3,7 +3,10 @@ package ninja.sakib.footballfreak.models
 import ninja.sakib.pultusorm.annotations.PrimaryKey
 
 /**
- * Created by s4kib on 11/9/16.
+ * := Coded with love by Sakib Sami on 11/8/16.
+ * := s4kibs4mi@gmail.com
+ * := www.sakib.ninja
+ * := Coffee : Dream : Code
  */
 
 class FixtureModel {
