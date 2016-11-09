@@ -1,4 +1,4 @@
-package ninja.sakib.footballfreak
+package ninja.sakib.footballfreak.views
 
 import android.os.Bundle
 import android.os.Environment
