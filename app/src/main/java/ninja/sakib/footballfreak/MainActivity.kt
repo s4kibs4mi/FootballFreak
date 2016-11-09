@@ -67,6 +67,10 @@ class MainActivity : AppCompatActivity(), Callback {
     }
 
     fun doOnRefresh() {
+        runOnUiThread {
+            toast("Fetching New Data")
+        }
+
         doAsync {
             val fixtures = FixtureFetcher().fetch()
             database.delete(FixtureModel())
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity(), Callback {
 
     fun showNewData() {
         runOnUiThread {
+            toast("Refreshing List")
             fixtureAdapter.clearFixtures()
 
             val fixtures = database.find(FixtureModel())
